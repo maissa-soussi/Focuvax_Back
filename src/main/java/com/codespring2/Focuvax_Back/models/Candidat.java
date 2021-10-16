@@ -31,8 +31,7 @@ public class Candidat {
 	private String etat;
 	private String date_postulation;
 	private String mailenvoye;
-	@OneToOne
-	private Lieu lieu;
+	private String lieu;
 	@OneToOne
 	private User user;
 
@@ -49,7 +48,7 @@ public class Candidat {
 
 	public Candidat(Integer id, String tel, String ecole, String diplome, String annee_Diplome, String specialite,
 			String nb_annee_experience, String photo, String cv, String linkedin, String etat, String date_postulation,
-			String mailenvoye, Lieu lieu, User user, Entretien entretien, List<Offre> offres) {
+			String mailenvoye, String lieu, User user, Entretien entretien, List<Offre> offres) {
 		super();
 		this.id = id;
 		this.tel = tel;
@@ -166,11 +165,11 @@ public class Candidat {
 		this.mailenvoye = mailenvoye;
 	}
 
-	public Lieu getLieu() {
+	public String getLieu() {
 		return lieu;
 	}
 
-	public void setLieu(Lieu lieu) {
+	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
 
@@ -212,6 +211,13 @@ public class Candidat {
 
 	public void setDate_postulation(String date_postulation) {
 		this.date_postulation = date_postulation;
+	}
+	
+	public void deleteOffre(Integer id) {
+		for (int i=0; i<offres.size();i++) {
+			if (offres.get(i).getId()==id)
+				offres.remove(i);
+		}
 	}
 
 }

@@ -95,6 +95,10 @@ public class OffreController {
 
 	@DeleteMapping("/offres/{id}")
 	public void delete(@PathVariable Integer id) {
+		List<Candidat> c = candidatservice.listAll();
+		for(int i=0; i<c.size();i++) {
+			c.get(i).deleteOffre(id);
+		}
 		service.delete(id);
 	}
 }

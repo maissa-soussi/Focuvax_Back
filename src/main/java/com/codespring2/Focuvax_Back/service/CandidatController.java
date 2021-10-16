@@ -72,7 +72,7 @@ public class CandidatController {
 			  mailEnvoie=mailEnvoie.replaceAll("<nom>", l.get(i).getUser().getPrenom());
 			  mailEnvoie=mailEnvoie.replaceAll("<date>", date);
 			  mailEnvoie=mailEnvoie.replaceAll("<heure>", l.get(i).getEntretien().getHeure().getValeur());
-			  mailEnvoie=mailEnvoie.replaceAll("<lieu>", l.get(i).getLieu().getValeur());
+			  mailEnvoie=mailEnvoie.replaceAll("<lieu>", l.get(i).getLieu());
 			mailservice.sendSimpleEmail(l.get(i).getUser().getUsername(), mailEnvoie, objet);
 			l.get(i).setMailenvoye("oui");
 		  }
@@ -281,11 +281,10 @@ public class CandidatController {
 		service.save(candidat);
 	}
 	
-	@PutMapping("/candidats/lieuPut/{idlieu}")
-	void lieuPut(@RequestBody Candidat c, @PathVariable Integer idlieu) {
+	@PutMapping("/candidats/lieuPut/{lieu}")
+	void lieuPut(@RequestBody Candidat c, @PathVariable String lieu) {
 		Candidat candidat = service.get(c.getId());
-		Lieu l = lieuservice.get(idlieu);
-		candidat.setLieu(l);
+		candidat.setLieu(lieu);
 		service.save(candidat);
 	}
 
@@ -315,21 +314,19 @@ public class CandidatController {
 	}
 
 	@GetMapping("/candidats/nbentretiens/dateHourNumber/{dateValue}/{heureValue}/{lieuValue}")
-	public Integer nbEntretienParHeure(@PathVariable String dateValue, @PathVariable Integer heureValue, @PathVariable Integer lieuValue) {
+	public Integer nbEntretienParHeure(@PathVariable String dateValue, @PathVariable Integer heureValue, @PathVariable String lieuValue) {
 		List<Candidat> l = service.listAll();
 		int i = 0;
 		int num = 0;
 		Heure hValue = heureservice.get(heureValue);
-		Lieu lValue = lieuservice.get(lieuValue);
 		while (i < l.size()) {
 			Entretien e = l.get(i).getEntretien();
-			Lieu li = l.get(i).getLieu();
-			if(e != null && li != null) {
+			String lieu = l.get(i).getLieu();
+			if(e != null && lieu != "") {
 			String d = e.getDate();
 			String h = e.getHeure().getValeur();
-			String lieu = li.getValeur();
 
-			if (d.equals(dateValue) && h.equals(hValue.getValeur()) && lieu.equals(lValue.getValeur()))
+			if (d.equals(dateValue) && h.equals(hValue.getValeur()) && lieu.equals(lieuValue))
 				num++;
 			}
 
