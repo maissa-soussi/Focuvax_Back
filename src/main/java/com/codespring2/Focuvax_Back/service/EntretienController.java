@@ -48,14 +48,14 @@ public class EntretienController {
 
 	@PostMapping("/entretiens/{heureId}")
 	public Integer add(@RequestBody Entretien entretien,  @PathVariable Integer heureId) {
-		
-			Entretien existEntretien = service.findByDateAndHeure(entretien.getDate(), heureId);
-			
+			Heure h= heureservice.get(heureId);
+			Entretien existEntretien = service.findByDateAndHeure(entretien.getDate(), h.getValeur());
 			if(existEntretien.getId() != null)
-			{
+			{	
 				return existEntretien.getId();
 			}
 			else {
+				
 			service.save(entretien);
 			Heure heure = heureservice.get(heureId);
 			entretien.assignHeure(heure);

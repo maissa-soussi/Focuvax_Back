@@ -34,13 +34,14 @@ public class EntretienService {
 		return en;
 	}
 
-	public Entretien findByDateAndHeure(String date, Integer idheure) {
+	public Entretien findByDateAndHeure(String date, String sheure) {
 		List<Entretien> li = repo.findAll();
 		int i = 0;
 		Entretien res = new Entretien();
 		while (i < li.size()) {
-			if (date.equals(li.get(i).getDate()) && li.get(i).getHeure().getId() == idheure) {
+			if (date.equals(li.get(i).getDate()) && sheure.equals(li.get(i).getHeure())){
 				return li.get(i);
+				
 			} else
 				i++;
 		}

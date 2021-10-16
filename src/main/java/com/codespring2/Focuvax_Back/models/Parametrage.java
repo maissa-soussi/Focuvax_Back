@@ -20,7 +20,6 @@ public class Parametrage {
 
 	public Parametrage(Integer id, String ecole, String diplome, String specialite, String nb_annee_exp, String etat,
 			String pays, Integer nb_Offre) {
-		super();
 		this.id = id;
 		this.ecole = ecole;
 		this.diplome = diplome;

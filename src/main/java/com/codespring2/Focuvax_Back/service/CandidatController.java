@@ -71,7 +71,7 @@ public class CandidatController {
 			  mailEnvoie=mailbody;
 			  mailEnvoie=mailEnvoie.replaceAll("<nom>", l.get(i).getUser().getPrenom());
 			  mailEnvoie=mailEnvoie.replaceAll("<date>", date);
-			  mailEnvoie=mailEnvoie.replaceAll("<heure>", l.get(i).getEntretien().getHeure().getValeur());
+			  mailEnvoie=mailEnvoie.replaceAll("<heure>", l.get(i).getEntretien().getHeure());
 			  mailEnvoie=mailEnvoie.replaceAll("<lieu>", l.get(i).getLieu());
 			mailservice.sendSimpleEmail(l.get(i).getUser().getUsername(), mailEnvoie, objet);
 			l.get(i).setMailenvoye("oui");
@@ -319,19 +319,21 @@ public class CandidatController {
 		int i = 0;
 		int num = 0;
 		Heure hValue = heureservice.get(heureValue);
+		if(hValue != null)
+		{
 		while (i < l.size()) {
 			Entretien e = l.get(i).getEntretien();
 			String lieu = l.get(i).getLieu();
 			if(e != null && lieu != "") {
 			String d = e.getDate();
-			String h = e.getHeure().getValeur();
+			String h = e.getHeure();
 
 			if (d.equals(dateValue) && h.equals(hValue.getValeur()) && lieu.equals(lieuValue))
 				num++;
 			}
 
 			i++;
-		}
+		}}
 		return num;
 	}
 

@@ -19,14 +19,13 @@ public class Entretien {
 	private Integer id;
 	private String date;
 
-	@ManyToOne
-	private Heure heure;
+	private String heure;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "entretien")
 	private List<Candidat> candidats = new ArrayList<>();
 
-	public Entretien(Integer id, String date, Heure heure) {
+	public Entretien(Integer id, String date, String heure) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -53,16 +52,16 @@ public class Entretien {
 		this.date = date;
 	}
 
-	public Heure getHeure() {
+	public String getHeure() {
 		return heure;
 	}
 
 	public void setHeure(Heure heure) {
-		this.heure = heure;
+		this.heure = heure.getValeur();
 	}
 
 	public void assignHeure(Heure heure) {
-		this.heure = heure;
+		this.heure = heure.getValeur();
 	}
 
 	public List<Candidat> getCandidats() {
