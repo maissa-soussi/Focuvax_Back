@@ -19,11 +19,7 @@ public class Offre {
 	private Integer id;
 	private String ref;
 	private String titre;
-	@Lob
-	@Column( length = 100000 )
 	private String profil;
-	@Lob
-	@Column( length = 100000 )
 	private String mission;
 	private String niveau_Exp;
 	private String pays;
@@ -72,7 +68,8 @@ public class Offre {
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-
+	@Column(columnDefinition = "TEXT")
+	@Lob
 	public String getProfil() {
 		return profil;
 	}
@@ -80,7 +77,8 @@ public class Offre {
 	public void setProfil(String profil) {
 		this.profil = profil;
 	}
-
+	@Column(columnDefinition = "TEXT")
+	@Lob
 	public String getMission() {
 		return mission;
 	}
